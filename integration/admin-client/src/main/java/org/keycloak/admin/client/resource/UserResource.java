@@ -49,10 +49,10 @@ public interface UserResource {
     UserRepresentation toRepresentation();
 
     @PUT
-    void update(UserRepresentation userRepresentation);
+    Response update(UserRepresentation userRepresentation);
 
     @DELETE
-    void remove();
+    Response remove();
 
     @Path("groups")
     @GET
@@ -88,18 +88,18 @@ public interface UserResource {
 
     @Path("groups/{groupId}")
     @PUT
-    void joinGroup(@PathParam("groupId") String groupId);
+    Response joinGroup(@PathParam("groupId") String groupId);
 
     @Path("groups/{groupId}")
     @DELETE
-    void leaveGroup(@PathParam("groupId") String groupId);
+    Response leaveGroup(@PathParam("groupId") String groupId);
 
 
 
 
     @POST
     @Path("logout")
-    void logout();
+    Response logout();
 
 
 
@@ -126,7 +126,7 @@ public interface UserResource {
      */
     @DELETE
     @Path("credentials/{credentialId}")
-    void removeCredential(@PathParam("credentialId")String credentialId);
+    Response removeCredential(@PathParam("credentialId")String credentialId);
 
     /**
      * Update a credential label for a user
@@ -134,7 +134,7 @@ public interface UserResource {
     @PUT
     @Consumes(javax.ws.rs.core.MediaType.TEXT_PLAIN)
     @Path("credentials/{credentialId}/userLabel")
-    void setCredentialUserLabel(final @PathParam("credentialId") String credentialId, String userLabel);
+    Response setCredentialUserLabel(final @PathParam("credentialId") String credentialId, String userLabel);
 
     /**
      * Move a credential to a first position in the credentials list of the user
@@ -142,7 +142,7 @@ public interface UserResource {
      */
     @Path("credentials/{credentialId}/moveToFirst")
     @POST
-    void moveCredentialToFirst(final @PathParam("credentialId") String credentialId);
+    Response moveCredentialToFirst(final @PathParam("credentialId") String credentialId);
 
     /**
      * Move a credential to a position behind another credential
@@ -151,7 +151,7 @@ public interface UserResource {
      */
     @Path("credentials/{credentialId}/moveAfter/{newPreviousCredentialId}")
     @POST
-    void moveCredentialAfter(final @PathParam("credentialId") String credentialId, final @PathParam("newPreviousCredentialId") String newPreviousCredentialId);
+    Response moveCredentialAfter(final @PathParam("credentialId") String credentialId, final @PathParam("newPreviousCredentialId") String newPreviousCredentialId);
 
 
     /**
@@ -166,11 +166,11 @@ public interface UserResource {
     @Path("disable-credential-types")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    void disableCredentialType(List<String> credentialTypes);
+    Response disableCredentialType(List<String> credentialTypes);
 
     @PUT
     @Path("reset-password")
-    void resetPassword(CredentialRepresentation credentialRepresentation);
+    Response resetPassword(CredentialRepresentation credentialRepresentation);
 
     /**
      * Use executeActionsEmail and pass in the UPDATE_PASSWORD required action
@@ -179,7 +179,7 @@ public interface UserResource {
     @PUT
     @Path("reset-password-email")
     @Deprecated
-    void resetPasswordEmail();
+    Response resetPasswordEmail();
 
     /**
      * Use executeActionsEmail and pass in the UPDATE_PASSWORD required action
@@ -188,7 +188,7 @@ public interface UserResource {
     @PUT
     @Path("reset-password-email")
     @Deprecated
-    void resetPasswordEmail(@QueryParam("client_id") String clientId);
+    Response resetPasswordEmail(@QueryParam("client_id") String clientId);
 
     /**
      * Sends an email to the user with a link within it.  If they click on the link they will be asked to perform some actions
@@ -198,7 +198,7 @@ public interface UserResource {
      */
     @PUT
     @Path("execute-actions-email")
-    void executeActionsEmail(List<String> actions);
+    Response executeActionsEmail(List<String> actions);
 
     /**
      * Sends an email to the user with a link within it.  If they click on the link they will be asked to perform some actions
@@ -212,7 +212,7 @@ public interface UserResource {
      */
     @PUT
     @Path("execute-actions-email")
-    void executeActionsEmail(List<String> actions, @QueryParam("lifespan") Integer lifespan);
+    Response executeActionsEmail(List<String> actions, @QueryParam("lifespan") Integer lifespan);
 
     /**
      * Sends an email to the user with a link within it.  If they click on the link they will be asked to perform some actions
@@ -232,10 +232,10 @@ public interface UserResource {
      */
     @PUT
     @Path("execute-actions-email")
-    void executeActionsEmail(@QueryParam("client_id") String clientId,
-                             @QueryParam("redirect_uri") String redirectUri,
-                             @QueryParam("lifespan") Integer lifespan,
-                             List<String> actions);
+    Response executeActionsEmail(@QueryParam("client_id") String clientId,
+                                 @QueryParam("redirect_uri") String redirectUri,
+                                 @QueryParam("lifespan") Integer lifespan,
+                                 List<String> actions);
 
     /**
      * Sends an email to the user with a link within it.  If they click on the link they will be asked to perform some actions
@@ -251,15 +251,15 @@ public interface UserResource {
      */
     @PUT
     @Path("execute-actions-email")
-    void executeActionsEmail(@QueryParam("client_id") String clientId, @QueryParam("redirect_uri") String redirectUri, List<String> actions);
+    Response executeActionsEmail(@QueryParam("client_id") String clientId, @QueryParam("redirect_uri") String redirectUri, List<String> actions);
 
     @PUT
     @Path("send-verify-email")
-    void sendVerifyEmail();
+    Response sendVerifyEmail();
 
     @PUT
     @Path("send-verify-email")
-    void sendVerifyEmail(@QueryParam("client_id") String clientId);
+    Response sendVerifyEmail(@QueryParam("client_id") String clientId);
 
     @GET
     @Path("sessions")
@@ -279,7 +279,7 @@ public interface UserResource {
 
     @Path("federated-identity/{provider}")
     @DELETE
-    void removeFederatedIdentity(final @PathParam("provider") String provider);
+    Response removeFederatedIdentity(final @PathParam("provider") String provider);
 
     @Path("role-mappings")
     RoleMappingResource roles();
@@ -291,7 +291,7 @@ public interface UserResource {
 
     @DELETE
     @Path("consents/{client}")
-    void revokeConsent(@PathParam("client") String clientId);
+    Response revokeConsent(@PathParam("client") String clientId);
 
     @POST
     @Path("impersonation")
