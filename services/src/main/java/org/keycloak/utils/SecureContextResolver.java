@@ -34,7 +34,7 @@ public class SecureContextResolver {
     }
 
     static boolean isSecureContext(URI uri, Supplier<DeviceRepresentation> deviceRepresentationSupplier) {
-        if (uri.getScheme().equals("https")) {
+        if ("https".equals(uri.getScheme())) {
             return true;
         }
 
